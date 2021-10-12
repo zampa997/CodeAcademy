@@ -374,7 +374,7 @@ namespace AcademyEfPersistance.Migrations
                     b.HasOne("AcademyModel.Entities.Student", "Student")
                         .WithMany("Enrollments")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("CourseEdition");

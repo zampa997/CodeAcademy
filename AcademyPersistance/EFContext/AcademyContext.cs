@@ -36,6 +36,12 @@ namespace AcademyEfPersistance.EFContext
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+
+			modelBuilder.Entity<Student>()
+				.HasMany(s => s.Enrollments)
+				.WithOne(e => e.Student)
+				.OnDelete(DeleteBehavior.Restrict);
+
 			modelBuilder.Entity<Course>()
 				.Property(c => c.Title)
 				.IsRequired();

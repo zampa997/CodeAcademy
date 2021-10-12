@@ -167,6 +167,35 @@ namespace AcademyEfPersistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Enrollments",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<long>(type: "bigint", nullable: false),
+                    CourseEditionId = table.Column<long>(type: "bigint", nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "date", nullable: false),
+                    StudentEvaluation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentFeedback = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enrollments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Enrollments_CourseEditions_CourseEditionId",
+                        column: x => x.CourseEditionId,
+                        principalTable: "CourseEditions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Enrollments_Person_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Lessons",
                 columns: table => new
                 {
@@ -221,6 +250,16 @@ namespace AcademyEfPersistance.Migrations
                 column: "AreaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Enrollments_CourseEditionId",
+                table: "Enrollments",
+                column: "CourseEditionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enrollments_StudentId",
+                table: "Enrollments",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Lessons_ClassroomId",
                 table: "Lessons",
                 column: "ClassroomId");
@@ -240,6 +279,9 @@ namespace AcademyEfPersistance.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Competences");
+
+            migrationBuilder.DropTable(
+                name: "Enrollments");
 
             migrationBuilder.DropTable(
                 name: "Lessons");

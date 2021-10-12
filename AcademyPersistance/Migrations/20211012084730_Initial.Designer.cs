@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AcademyEfPersistance.Migrations
 {
     [DbContext(typeof(AcademyContext))]
-    [Migration("20211011155112_Initial")]
+    [Migration("20211012084730_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,6 +165,37 @@ namespace AcademyEfPersistance.Migrations
                     b.HasIndex("InstructorId");
 
                     b.ToTable("CourseEditions");
+                });
+
+            modelBuilder.Entity("AcademyModel.Entities.Enrollment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CourseEditionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("StudentEvaluation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentFeedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseEditionId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("AcademyModel.Entities.Lesson", b =>
@@ -334,6 +365,25 @@ namespace AcademyEfPersistance.Migrations
                     b.Navigation("Instructor");
                 });
 
+            modelBuilder.Entity("AcademyModel.Entities.Enrollment", b =>
+                {
+                    b.HasOne("AcademyModel.Entities.CourseEdition", "CourseEdition")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("CourseEditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AcademyModel.Entities.Student", "Student")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CourseEdition");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("AcademyModel.Entities.Lesson", b =>
                 {
                     b.HasOne("AcademyModel.Entities.Classroom", "Classroom")
@@ -367,6 +417,16 @@ namespace AcademyEfPersistance.Migrations
             modelBuilder.Entity("AcademyModel.Entities.Course", b =>
                 {
                     b.Navigation("Editions");
+                });
+
+            modelBuilder.Entity("AcademyModel.Entities.CourseEdition", b =>
+                {
+                    b.Navigation("Enrollments");
+                });
+
+            modelBuilder.Entity("AcademyModel.Entities.Student", b =>
+                {
+                    b.Navigation("Enrollments");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,9 @@
 using AcademyEfPersistance.EFContext;
+using AcademyEfPersistance.Repository;
+using AcademyModel.Repositories;
+using AcademyModel.Services;
+using EFSchoolPersistence.Repository;
+using EFSchoolPersistence.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +38,13 @@ namespace CodeAcademyWeb
 						   }, LogLevel.Information).EnableSensitiveDataLogging());
 
 			services.AddControllersWithViews();
+			services.AddScoped<IDidactisService, EFDidactisService>();
+			services.AddScoped<IStudentRepository, EFStudentRepository>();
+			services.AddScoped<ICourseRepository, EFCourseRepository>();
+			services.AddScoped<IEditionRepository, EFEditionRepository>();
+			services.AddScoped<IInstructorRepository, EFInstructorRepository>();
+
+			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //configurazione auto mapper per casting a DTO
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,11 +52,11 @@ namespace CodeAcademyWeb
 		{
 			if (env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();
+				//app.UseDeveloperExceptionPage();
 			}
 			else
 			{
-				app.UseExceptionHandler("/Home/Error");
+				//app.UseExceptionHandler("/Home/Error");
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
@@ -58,8 +70,9 @@ namespace CodeAcademyWeb
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(
-			    name: "default",
-			    pattern: "{controller=Home}/{action=Index}/{id?}");
+				name: "default",
+				pattern: "{controller=Home}/{action=Index}/{id?}");
+				//endpoints.MapControllers();
 			});
 		}
 	}

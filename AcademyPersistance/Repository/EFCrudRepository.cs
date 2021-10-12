@@ -49,7 +49,7 @@ namespace EFSchoolPersistence.Repository
 
 		}
 
-		public T FindById(K id)
+		public virtual T FindById(K id)
 		{
 			return entities.Find(id);
 		}
