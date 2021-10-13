@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AcademyEfPersistance.EFContext
+namespace AcademyEFPersistance.EFContext
 {
 	public class AcademyContext : DbContext
 	{
@@ -51,6 +51,8 @@ namespace AcademyEfPersistance.EFContext
 			modelBuilder.Entity<Person>()
 				.Property(c => c.Lastname)
 				.IsRequired();
+			modelBuilder.Entity<Enrollment>()
+				.HasIndex(e => new { e.StudentId, e.CourseEditionId });
 		}
 	}
 }

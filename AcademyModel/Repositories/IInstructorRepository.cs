@@ -9,6 +9,6 @@ namespace AcademyModel.Repositories
 {
 	public interface IInstructorRepository : ICrudRepository<Instructor, long>
 	{
-
+		IEnumerable<Instructor> FindInstructorByCompetence(long idSkill, Level? level);
 	}
 }

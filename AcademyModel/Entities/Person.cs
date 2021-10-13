@@ -17,5 +17,6 @@ namespace AcademyModel.Entities
 		public string City { get; set; }
 		public string Email { get; set; }
 		public string PhoneNumber { get; set; }
+		public ICollection<Competence> Competences { get; set; }
 	}
 }

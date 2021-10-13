@@ -1,4 +1,6 @@
-﻿using AcademyModel.Entities;
+﻿using AcademyModel.BuisnessLogic;
+using AcademyModel.Entities;
+using AcademyModel.Exceptions;
 using AcademyModel.Services;
 using AutoMapper;
 using CodeAcademyWeb.DTOs;
@@ -22,7 +24,7 @@ namespace CodeAcademyWeb.Controllers
 			this.service = service;
 			this.mapper = mapper;
 		}
-		
+
 		[HttpGet]
 		public IActionResult GetAll()
 		{
@@ -40,7 +42,20 @@ namespace CodeAcademyWeb.Controllers
 			var student = mapper.Map<Student>(s);
 			service.CreateStudent(student);
 			var studentDTO = mapper.Map<StudentDTO>(student);
-			return Created( $"/api/student/{studentDTO.Id}", studentDTO);
+			return Created($"/api/student/{studentDTO.Id}", studentDTO);
+		}
+		[HttpPost]
+		[Route("{idStudent}/enrollments")]
+		public IActionResult EnrollStudent(EnrollDataDTO dataDTO, long idStudent)
+		{
+			if( idStudent != dataDTO.IdStudent )
+			{
+				return BadRequest(new ErrorObject(StatusCodes.Status400BadRequest, "L'id studente nell'URL e nel body non coincidono."));
+			}
+			var data = mapper.Map<EnrollData>(dataDTO);
+			var enr = service.EnrollSudentToEdition(data);
+			var enrDTO = mapper.Map<EnrollmentDTO>(enr);
+			return Created($"/api/student/{data.IdStudent}/enrollments/{enr.Id}", enrDTO);
 		}
 	}
 }

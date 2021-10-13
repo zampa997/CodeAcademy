@@ -1,4 +1,5 @@
-﻿using AcademyModel.Entities;
+﻿using AcademyModel.BuisnessLogic;
+using AcademyModel.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace AcademyModel.Services
 		Student GetStudentById(long id);
 		void UpdateStudent(Student s);
 		void DeleteStudent(Student s);
+		Enrollment EnrollSudentToEdition(EnrollData data);
 
 		Instructor GetInstructorById(long id);
 	}

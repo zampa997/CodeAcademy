@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodaTime;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace AcademyModel.Entities
 		public long AreaId { get; set; }
 		public Area Area { get; set; }
 		public bool GrantsCertification { get; set; }
+		public LocalDate CreationDate { get; set; }
 		public ICollection<CourseEdition> Editions { get; set; } = new List<CourseEdition>();
 	}
 }

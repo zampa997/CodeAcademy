@@ -1,9 +1,9 @@
-using AcademyEfPersistance.EFContext;
-using AcademyEfPersistance.Repository;
+using AcademyEFPersistance.EFContext;
+using AcademyEFPersistance.Repository;
+using AcademyEFPersistance.Services;
+using AcademyEFPersistence.Services;
 using AcademyModel.Repositories;
 using AcademyModel.Services;
-using EFSchoolPersistence.Repository;
-using EFSchoolPersistence.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +43,7 @@ namespace CodeAcademyWeb
 			services.AddScoped<ICourseRepository, EFCourseRepository>();
 			services.AddScoped<IEditionRepository, EFEditionRepository>();
 			services.AddScoped<IInstructorRepository, EFInstructorRepository>();
+			services.AddScoped<IPeopleService, EFPeopleService>();
 
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //configurazione auto mapper per casting a DTO
 		}

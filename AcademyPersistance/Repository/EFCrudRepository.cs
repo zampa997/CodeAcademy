@@ -1,4 +1,4 @@
-﻿using AcademyEfPersistance.EFContext;
+﻿
 using Microsoft.EntityFrameworkCore;
 using AcademyModel.Repositories;
 using System;
@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AcademyEFPersistance.EFContext;
 
-namespace EFSchoolPersistence.Repository
+namespace AcademyEFPersistance.Repository
 {
 	public class EFCrudRepository<T, K> : ICrudRepository<T, K> where T : class
 	{

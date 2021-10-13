@@ -8,12 +8,12 @@ namespace AcademyModel.BuisnessLogic
 	public class EnrollData
 	{
 		public long IdStudent { get; set; }
-		public long IdCourse { get; set; }
-	public EnrollData(){ }
-		public EnrollData(long idStudent, long idCourse) 
+		public long IdEdition { get; set; }
+		public EnrollData(){ }
+		public EnrollData(long idStudent, long idEdition) 
 		{
 			IdStudent = idStudent;
-			IdCourse = idCourse;
+			IdEdition = idEdition;
 		}
 	}
 }

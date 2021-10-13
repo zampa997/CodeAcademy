@@ -11,6 +11,7 @@ namespace AcademyModel.Repositories
 	{
 		IEnumerable<Student> FindByLastnameLike(string lastnameLike);
 		Student FindStudentWithCoursesById(long id);
+		IEnumerable<Student> FindStudentByCompetence(long idSkill, Level? level);
 	}
 
 

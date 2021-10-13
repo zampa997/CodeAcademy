@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcademyModel.BuisnessLogic;
 using AcademyModel.Entities;
 using AutoMapper;
 using CodeAcademyWeb.DTOs;
@@ -21,6 +22,10 @@ namespace CodeAcademyWeb.Profiles
 			CreateMap<StudentDTO, Student>()
 				.ForMember(student => student.DateOfBirth, opt => opt.MapFrom(dto => Parse(dto.DateOfBirth)))
 				.ForMember(student => student.Lastname, opt =>opt.MapFrom(dto => dto.Surname));
+			CreateMap<EnrollData, EnrollDataDTO>();
+			CreateMap<EnrollDataDTO, EnrollData>();
+			CreateMap<Enrollment, EnrollmentDTO>();
+			CreateMap<EnrollmentDTO, Enrollment>();
 		}
 		private LocalDate Parse(string dateString)
 		{

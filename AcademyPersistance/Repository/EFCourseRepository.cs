@@ -1,4 +1,4 @@
-﻿using AcademyEfPersistance.EFContext;
+﻿
 using NodaTime;
 using AcademyModel.Entities;
 using AcademyModel.Repositories;
@@ -8,24 +8,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFSchoolPersistence.Repository
+using AcademyEFPersistance.EFContext;
+
+namespace AcademyEFPersistance.Repository
 {
 	public class EFCourseRepository : EFCrudRepository<Course, long>, ICourseRepository
 	{
-	public EFCourseRepository(AcademyContext ctx) : base(ctx)
-	{ }
-		public IEnumerable<Course> GetAllFutureCourses()
+	public EFCourseRepository(AcademyContext ctx) : base(ctx){ }
+
+		public IEnumerable<Course> FindCourseByArea(long idArea)
 		{
-			//LocalDate Today = LocalDate.FromDateTime(new DateTime());
-			//return ctx.Courses.Where(c => c.StartDate >= Today).OrderBy(c=> c.StartDate);
-			return null;
+			return ctx.Courses.Where(c => c.AreaId == idArea);
 		}
 
-		public IEnumerable<Course> GetAllUnfinishedCourses()
+		public IEnumerable<Course> FindCourseByCourseDescriptionLike(string description)
 		{
-			//LocalDate Today = LocalDate.FromDateTime(new DateTime());
-			//return ctx.Courses.Where(c => c.EndDate >= Today).OrderBy(c => c.StartDate);
-			return null;
+			return ctx.Courses.Where(c => c.Description.Contains(description));
+		}
+
+		public IEnumerable<Course> FindCourseByTitleLike(string title)
+		{
+			return ctx.Courses.Where(c => c.Title.Contains(title));
 		}
 	}
 }

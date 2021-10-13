@@ -23,6 +23,7 @@ namespace CodeAcademyWeb.Profiles
 			CreateMap<CourseEditionDetailsDTO, CourseEdition>()
 				.ForMember(edition => edition.StartDate, opt => opt.MapFrom(dto => Parse(dto.StartDate)))
 				.ForMember(edition => edition.FinalizationDate, opt => opt.MapFrom(dto => Parse(dto.FinalizationDate)));
+			
 				
 		}
 		private LocalDate Parse(string dateString)

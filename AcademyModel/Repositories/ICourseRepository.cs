@@ -9,7 +9,8 @@ namespace AcademyModel.Repositories
 {
 	public interface ICourseRepository : ICrudRepository<Course, long>
 	{
-		IEnumerable<Course> GetAllFutureCourses();
-		IEnumerable<Course> GetAllUnfinishedCourses();
+		IEnumerable<Course> FindCourseByTitleLike(string title);
+		IEnumerable<Course> FindCourseByCourseDescriptionLike(string description);
+		IEnumerable<Course> FindCourseByArea(long idArea);
 	}
 }

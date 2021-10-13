@@ -1,22 +1,24 @@
-﻿using AcademyEfPersistance.EFContext;
+﻿using AcademyEFPersistance.EFContext;
 using AcademyModel.BuisnessLogic;
 using AcademyModel.Entities;
 using AcademyModel.Exceptions;
 using AcademyModel.Repositories;
 using AcademyModel.Services;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFSchoolPersistence.Services
+namespace AcademyEFPersistence.Services
 {
 	public class EFDidactisService : IDidactisService
 	{
 		private IInstructorRepository instructorRepo;
 		private ICourseRepository courseRepo;
 		private IEditionRepository editionRepo;
+		private ILessonRepository lessonRepo;
 
 		private AcademyContext ctx;
 		public EFDidactisService(ICourseRepository courseRepo,IEditionRepository editionRepo, IInstructorRepository instructorRepo, AcademyContext ctx)
@@ -27,54 +29,38 @@ namespace EFSchoolPersistence.Services
 			this.ctx = ctx;
 		}
 
-		public IEnumerable<Course> GetAllFutureCourses()
+		#region Course
+		public IEnumerable<Course> FindCourseByTitleLike(string title)
 		{
-			return courseRepo.GetAllFutureCourses().ToList();
+			return courseRepo.FindCourseByTitleLike(title);
 		}
-
-		public IEnumerable<Course> GetAllUnfinishedCourses()
+		public IEnumerable<Course> FindCourseByCourseDescriptionLike(string description)
 		{
-			return courseRepo.GetAllUnfinishedCourses().ToList();
+			return courseRepo.FindCourseByCourseDescriptionLike(description);
 		}
-
-		public void EnrollSudentToCourse(EnrollData data)
+		public IEnumerable<Course> FindCourseByArea(long idArea)
 		{
-			//var student = studentRepo.FindById(data.IdStudent);
-			//if (student==null)
-			//{
-			//	throw new EntityNotFoundException($"Lo studente con id {data.IdStudent} non esiste.",  nameof(Student));
-			//}
-			//var course = courseRepo.FindById(data.IdCourse);
-			//if (course == null)
-			//{
-			//	throw new EntityNotFoundException($"Il corso con id {data.IdCourse} non esiste.", nameof(Course));
-			//}
-			//student.Courses.Add(course);
-			//course.EnrollStudents.Add(student);
-			//ctx.SaveChanges();
+			return courseRepo.FindCourseByArea(idArea);
 		}
+		#endregion
 
-
-
+		#region CourseEditions
 		public IEnumerable<CourseEdition> GetAllEditions()
 		{
 			return editionRepo.GetAll();
 		}
-
 		public CourseEdition GetEditionById(long id)
 		{
 			return editionRepo.FindById(id);
 		}
-
 		public CourseEdition CreateCourseEdition(CourseEdition e)
 		{
 			CheckCourse(e.CourseId);
 			CheckInstructor(e.InstructorId);
 			editionRepo.Create(e);
 			ctx.SaveChanges();
-			return e;			
+			return e;
 		}
-
 		public CourseEdition EditCourseEdition(CourseEdition e)
 		{
 			CheckCourse(e.CourseId);
@@ -90,7 +76,46 @@ namespace EFSchoolPersistence.Services
 			editionRepo.Delete(edition);
 			ctx.SaveChanges();
 		}
+		public IEnumerable<CourseEdition> Search(EditionSearchInfo info)
+		{
+			if (info.Start != null || info.End != null)
+			{
+				if (info.InTheFuture != null || info.InThePast != null)
+				{
+					throw new BuinsnessLogicException("I criteri di ricerca non possono comprende  allo stesso tempo date e richiesta su futuro e passato");
+				}
+			}
 
+			if (info.Start != null && info.End != null)
+			{
+				if (info.Start > info.End)
+				{
+					throw new BuinsnessLogicException("La data di inizio non può essere successiva a quella di fine");
+				}
+			}
+
+			if (info.InTheFuture == true && info.InThePast == true)
+			{
+				throw new BuinsnessLogicException("Non è possibile richiedere edizioni sia nel passatro che nel futuro");
+			}
+			return editionRepo.Search(info).ToList();
+		}
+		#endregion
+
+		#region Lesson
+		public IEnumerable<Lesson> FindLessonForEditionId(long id)
+		{
+			return lessonRepo.FindLessonForEditionId(id);
+		}
+
+		public IEnumerable<Lesson> FindLessonInRange(LocalDate start, LocalDate end)
+		{
+			return lessonRepo.FindLessonInRange(start, end);
+		}
+		#endregion
+		
+
+		#region Helpers
 		private Course CheckCourse(long id)
 		{
 			var course = courseRepo.FindById(id);
@@ -118,7 +143,7 @@ namespace EFSchoolPersistence.Services
 			}
 			return courseEdition;
 		}
+		#endregion
 
-		
 	}
 }
