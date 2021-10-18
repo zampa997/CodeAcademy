@@ -30,5 +30,10 @@ namespace AcademyEFPersistance.Repository
 		{
 			return ctx.Courses.Where(c => c.Title.Contains(title));
 		}
-	}
+
+        public IEnumerable<Course> GetLastCourses(int n)
+        {
+			return ctx.Courses.OrderBy(c => c.CreationDate).Take(n);
+        }
+    }
 }

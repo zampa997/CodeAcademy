@@ -12,5 +12,6 @@ namespace AcademyModel.Repositories
 		IEnumerable<Course> FindCourseByTitleLike(string title);
 		IEnumerable<Course> FindCourseByCourseDescriptionLike(string description);
 		IEnumerable<Course> FindCourseByArea(long idArea);
+		IEnumerable<Course> GetLastCourses(int n);
 	}
 }

@@ -20,12 +20,14 @@ namespace AcademyModel.Services
 		IEnumerable<Course> FindCourseByCourseDescriptionLike(string description);
 		IEnumerable<Course> FindCourseByArea(long idArea);
 		public IEnumerable<Course> GetAllCourses();
+		IEnumerable<Course> GetLastCourses(int n);
 
 		IEnumerable<CourseEdition> GetAllEditions();
 		CourseEdition GetEditionById(long id);
 		CourseEdition EditCourseEdition(CourseEdition e);
 		void DeleteCourseEdition(long id);
 		IEnumerable<CourseEdition> Search(EditionSearchInfo info);
+
 
 		
 

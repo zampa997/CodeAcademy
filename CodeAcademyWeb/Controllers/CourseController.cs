@@ -29,5 +29,12 @@ namespace CodeAcademyWeb.Controllers
 			var courseDTOs = mapper.Map<IEnumerable<CourseDTO>>(course);
 			return Ok(courseDTOs);
 		}
+		public IActionResult GetLastNCurses(int n)
+		{
+			var courses = service.GetLastCourses(n);
+
+			var courseDTOs = mapper.Map<IEnumerable<CourseDTO>>(courses);
+			return Ok(courseDTOs);
+		}
 	}
 }

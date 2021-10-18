@@ -46,6 +46,11 @@ namespace AcademyEFPersistence.Services
 		{
 			return courseRepo.GetAll();
 		}
+
+		public IEnumerable<Course> GetLastCourses(int n)
+		{
+			return courseRepo.GetLastCourses(n);
+		}
 		#endregion
 
 		#region CourseEditions
@@ -147,7 +152,9 @@ namespace AcademyEFPersistence.Services
 			}
 			return courseEdition;
 		}
-		#endregion
 
-	}
+       
+        #endregion
+
+    }
 }
