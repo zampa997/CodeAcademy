@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcademyModel.Extensions;
 
 namespace CodeAcademyWeb.Profiles
 {
@@ -21,16 +22,10 @@ namespace CodeAcademyWeb.Profiles
 				.ForMember(dto => dto.StartDate, opt => opt.MapFrom(edition => edition.StartDate.ToString("yyyy/MM/dd", null)))
 				.ForMember(dto => dto.FinalizationDate, opt => opt.MapFrom(edition => edition.FinalizationDate.ToString("yyyy/MM/dd", null)));
 			CreateMap<CourseEditionDetailsDTO, CourseEdition>()
-				.ForMember(edition => edition.StartDate, opt => opt.MapFrom(dto => Parse(dto.StartDate)))
-				.ForMember(edition => edition.FinalizationDate, opt => opt.MapFrom(dto => Parse(dto.FinalizationDate)));
+				.ForMember(edition => edition.StartDate, opt => opt.MapFrom(dto => dto.StartDate.Parse()))
+				.ForMember(edition => edition.FinalizationDate, opt => opt.MapFrom(dto => dto.FinalizationDate.Parse()));
 			
 				
-		}
-		private LocalDate Parse(string dateString)
-		{
-			LocalDatePattern pattern = LocalDatePattern.CreateWithCurrentCulture("yyyy/MM/dd");
-			var result = pattern.Parse(dateString);
-			return result.Value;
 		}
 	}
 }

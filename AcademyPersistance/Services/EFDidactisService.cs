@@ -42,6 +42,10 @@ namespace AcademyEFPersistence.Services
 		{
 			return courseRepo.FindCourseByArea(idArea);
 		}
+		public IEnumerable<Course> GetAllCourses()
+		{
+			return courseRepo.GetAll();
+		}
 		#endregion
 
 		#region CourseEditions

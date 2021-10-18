@@ -19,6 +19,7 @@ namespace AcademyModel.Services
 		IEnumerable<Course> FindCourseByTitleLike(string title);
 		IEnumerable<Course> FindCourseByCourseDescriptionLike(string description);
 		IEnumerable<Course> FindCourseByArea(long idArea);
+		public IEnumerable<Course> GetAllCourses();
 
 		IEnumerable<CourseEdition> GetAllEditions();
 		CourseEdition GetEditionById(long id);

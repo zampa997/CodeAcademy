@@ -45,6 +45,12 @@ namespace CodeAcademyWeb
 			services.AddScoped<IInstructorRepository, EFInstructorRepository>();
 			services.AddScoped<IPeopleService, EFPeopleService>();
 
+			//services.AddCors(c =>                            // permette chiamate CORS per front-end
+			//{
+			//	c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+			//}); 
+
+
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //configurazione auto mapper per casting a DTO
 		}
 
@@ -61,6 +67,8 @@ namespace CodeAcademyWeb
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
+			app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 

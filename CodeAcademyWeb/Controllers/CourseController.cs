@@ -1,4 +1,7 @@
 ﻿using AcademyModel.Entities;
+using AcademyModel.Services;
+using AutoMapper;
+using CodeAcademyWeb.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,9 +15,19 @@ namespace CodeAcademyWeb.Controllers
 	[ApiController]
 	public class CourseController : Controller
 	{
-		IEnumerable<Course> GetAll()
+		private IDidactisService service;
+		private IMapper mapper;
+		public CourseController(IDidactisService service, IMapper mapper)
 		{
-			return null;
+			this.service = service;
+			this.mapper = mapper;
+		}
+		[HttpGet]
+		public IActionResult GetAll()
+		{
+			var course = service.GetAllCourses();
+			var courseDTOs = mapper.Map<IEnumerable<CourseDTO>>(course);
+			return Ok(courseDTOs);
 		}
 	}
 }
