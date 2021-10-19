@@ -12,13 +12,13 @@ namespace AcademyModel.Extensions
 	{
 		public static LocalDate Parse(this string dateString)
 		{
-			LocalDatePattern pattern = LocalDatePattern.CreateWithCurrentCulture("yyyy/MM/dd");
+			LocalDatePattern pattern = LocalDatePattern.CreateWithCurrentCulture("yyyy-MM-dd");
 			var result = pattern.Parse(dateString);
 			return result.Value;
 		}
 		public static string ToLocalDateString(this LocalDate date)
 		{
-			return date.ToString("yyyy/MM/dd", null);
+			return date.ToString("yyyy-MM-dd", null);
 		}
 	}
 }

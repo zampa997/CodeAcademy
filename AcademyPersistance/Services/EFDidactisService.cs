@@ -52,6 +52,33 @@ namespace AcademyEFPersistence.Services
 		{
 			return courseRepo.FindById(id);
 		}
+		public Course CreateCourse(Course c)
+		{
+			var res = courseRepo.Create(c);
+			ctx.SaveChanges();
+			return res;
+		}
+		public void DeleteCourse(Course c)
+		{
+			courseRepo.Delete(c);
+			ctx.SaveChanges();
+		}
+		public void DeleteCourse(long id)
+		{
+			courseRepo.Delete(id);
+			ctx.SaveChanges();
+		}
+		public IEnumerable<CourseEdition> GetEditionsByCourseId(long id)
+		{
+			return editionRepo.GetEditionsByCourseId(id);
+		}
+
+		public Course UpdateCourse(Course c)
+		{
+			var res = courseRepo.Update(c);
+			ctx.SaveChanges();
+			return res;
+		}
 
 		public IEnumerable<Course> GetLastCourses(int n)
 		{
@@ -163,8 +190,10 @@ namespace AcademyEFPersistence.Services
 			return courseEdition;
 		}
 
-       
-        #endregion
+		
 
-    }
+
+		#endregion
+
+	}
 }

@@ -13,7 +13,7 @@ namespace CodeAcademyWeb.DTOs
 		public int Duration { get; set; }
 		public decimal BasePrice { get; set; }
 		public string Syllabus { get; set; }
-		public string Level { get; set; }
+		public int Level { get; set; }
 		public long AreaId { get; set; }
 		public string AreaName { get; set; }
 		public bool GrantsCertification { get; set; }

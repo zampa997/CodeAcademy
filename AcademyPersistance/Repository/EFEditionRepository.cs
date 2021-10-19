@@ -31,7 +31,7 @@ namespace AcademyEFPersistance.Repository
 		public IEnumerable<CourseEdition> Search(EditionSearchInfo info)
 		{
 			LocalDate today = LocalDate.FromDateTime(new DateTime());
-			IEnumerable<CourseEdition> editions = new List<CourseEdition>();
+			IQueryable<CourseEdition> editions = ctx.CourseEditions;
 
 			if (info.Start != null || info.End != null)
 			{
@@ -66,6 +66,10 @@ namespace AcademyEFPersistance.Repository
 				editions = editions.Where(e => e.Course.Title.Contains(info.TitleLike));
 			}
 			return editions;
+		}
+		public IEnumerable<CourseEdition> GetEditionsByCourseId(long id)
+		{
+			return ctx.CourseEditions.Where(e => e.CourseId == id);
 		}
 	}
 }

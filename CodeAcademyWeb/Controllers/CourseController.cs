@@ -31,12 +31,12 @@ namespace CodeAcademyWeb.Controllers
 		}
 		[HttpGet]
 		[Route("{id}")]
-		public IActionResult GetById(long id){
+		public IActionResult GetById(long id) {
 			var course = service.GetCourseById(id);
 			var courseDTO = mapper.Map<CourseDTO>(course);
 			return Ok(courseDTO);
 		}
-	
+
 		[HttpGet]
 		[Route("areas")]
 		public IActionResult GetAllAreas()
@@ -45,7 +45,40 @@ namespace CodeAcademyWeb.Controllers
 			var areaDTOs = mapper.Map<IEnumerable<AreaDTO>>(areas);
 			return Ok(areaDTOs);
 		}
+		[HttpPost]
+		public IActionResult CreateCourse(CourseDTO courseDTO)
+		{
+			var course = mapper.Map<Course>(courseDTO);
+			course = service.CreateCourse(course);
+			var resDTO = mapper.Map<CourseDTO>(course);
+			return Created($"/api/courses/{resDTO.Id}", resDTO);
+		}
+		[HttpPut]
+		public IActionResult UpdateCourse(CourseDTO courseDTO)
+		{
+			var course = mapper.Map<Course>(courseDTO);
+			course = service.UpdateCourse(course);
+			var resDTO = mapper.Map<CourseDTO>(course);
+			return Created($"/api/courses/{resDTO.Id}", resDTO);
+		}
+		[HttpDelete]
+		public IActionResult RemoveCourse(CourseDTO courseDTO)
+		{
+			var course = mapper.Map<Course>(courseDTO);
+			service.DeleteCourse(course);
+			var resDTO = mapper.Map<CourseDTO>(course);
+			return Ok(resDTO);
+		}
 
+		[HttpDelete]
+		[Route("{id}")]
+		public IActionResult RemoveCourse(long id)
+		{
+			var course =service.GetCourseById(id);
+			service.DeleteCourse(id);
+			var resDTO = mapper.Map<CourseDTO>(course);
+			return Ok(resDTO);
+		}
 		public IActionResult GetLastNCurses(int n)
 		{
 			var courses = service.GetLastCourses(n);
