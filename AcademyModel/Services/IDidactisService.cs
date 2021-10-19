@@ -19,8 +19,9 @@ namespace AcademyModel.Services
 		IEnumerable<Course> FindCourseByTitleLike(string title);
 		IEnumerable<Course> FindCourseByCourseDescriptionLike(string description);
 		IEnumerable<Course> FindCourseByArea(long idArea);
-		public IEnumerable<Course> GetAllCourses();
+		IEnumerable<Course> GetAllCourses();
 		IEnumerable<Course> GetLastCourses(int n);
+		Course GetCourseById(long id);
 
 		IEnumerable<CourseEdition> GetAllEditions();
 		CourseEdition GetEditionById(long id);
@@ -34,7 +35,7 @@ namespace AcademyModel.Services
 		IEnumerable<Lesson> FindLessonForEditionId(long id);
 		IEnumerable<Lesson> FindLessonInRange(LocalDate start, LocalDate end);
 
-
+		IEnumerable<Area> GetAllAreas();
 
 
 		

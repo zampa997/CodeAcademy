@@ -19,13 +19,15 @@ namespace AcademyEFPersistence.Services
 		private ICourseRepository courseRepo;
 		private IEditionRepository editionRepo;
 		private ILessonRepository lessonRepo;
+		private IAreaRepository areaRepo;
 
 		private AcademyContext ctx;
-		public EFDidactisService(ICourseRepository courseRepo,IEditionRepository editionRepo, IInstructorRepository instructorRepo, AcademyContext ctx)
+		public EFDidactisService(ICourseRepository courseRepo,IEditionRepository editionRepo, IInstructorRepository instructorRepo,  IAreaRepository areaRepo, AcademyContext ctx)
 		{
 			this.courseRepo = courseRepo;
 			this.editionRepo = editionRepo;
 			this.instructorRepo = instructorRepo;
+			this.areaRepo = areaRepo;
 			this.ctx = ctx;
 		}
 
@@ -45,6 +47,10 @@ namespace AcademyEFPersistence.Services
 		public IEnumerable<Course> GetAllCourses()
 		{
 			return courseRepo.GetAll();
+		}
+		public Course GetCourseById(long id)
+		{
+			return courseRepo.FindById(id);
 		}
 
 		public IEnumerable<Course> GetLastCourses(int n)
@@ -123,6 +129,10 @@ namespace AcademyEFPersistence.Services
 		}
 		#endregion
 		
+		public IEnumerable<Area> GetAllAreas()
+		{
+			return areaRepo.GetAll().ToList();
+		}
 
 		#region Helpers
 		private Course CheckCourse(long id)

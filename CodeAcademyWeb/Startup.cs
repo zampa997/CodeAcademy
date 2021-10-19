@@ -44,6 +44,7 @@ namespace CodeAcademyWeb
 			services.AddScoped<IEditionRepository, EFEditionRepository>();
 			services.AddScoped<IInstructorRepository, EFInstructorRepository>();
 			services.AddScoped<IPeopleService, EFPeopleService>();
+			services.AddScoped<IAreaRepository, EFAreaRepository>();
 
 			//services.AddCors(c =>                            // permette chiamate CORS per front-end
 			//{
