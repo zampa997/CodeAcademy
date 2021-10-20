@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AcademyModel.BuisnessLogic;
 using AcademyModel.Entities;
+using AcademyModel.Extensions;
 using AutoMapper;
 using CodeAcademyWeb.DTOs;
 using NodaTime;
@@ -16,22 +17,19 @@ namespace CodeAcademyWeb.Profiles
 		public StudentProfile()
 		{
 			CreateMap<Student, StudentDTO>()
-				.ForMember(dto => dto.DateOfBirth, opt => opt.MapFrom(student => student.DateOfBirth.ToString("yyyy/MM/dd", null)))
+				.ForMember(dto => dto.DateOfBirth, opt => opt.MapFrom(student => student.DateOfBirth.ToLocalDateString()))
 				.ForMember(dto => dto.Surname, opt => opt.MapFrom(student => student.Lastname));
 
 			CreateMap<StudentDTO, Student>()
-				.ForMember(student => student.DateOfBirth, opt => opt.MapFrom(dto => Parse(dto.DateOfBirth)))
+				.ForMember(student => student.DateOfBirth, opt => opt.MapFrom(dto => dto.DateOfBirth.Parse()))
 				.ForMember(student => student.Lastname, opt =>opt.MapFrom(dto => dto.Surname));
 			CreateMap<EnrollData, EnrollDataDTO>();
 			CreateMap<EnrollDataDTO, EnrollData>();
-			CreateMap<Enrollment, EnrollmentDTO>();
-			CreateMap<EnrollmentDTO, Enrollment>();
+
+			CreateMap<Enrollment, EnrollmentDTO>()
+				.ForMember(dto => dto.CourseEditionStartDate, opt => opt.MapFrom(enrollment => enrollment.CourseEdition.StartDate.ToLocalDateString()));
+			CreateMap<EnrollmentDTO, Enrollment>()
+				.ForPath(enrollment => enrollment.CourseEdition.StartDate, opt => opt.MapFrom(dto => dto.CourseEditionStartDate.Parse()));
 		}
-		private LocalDate Parse(string dateString)
-		{
-			LocalDatePattern pattern = LocalDatePattern.CreateWithCurrentCulture("yyyy/MM/dd");
-			var result = pattern.Parse(dateString);
-			return result.Value;
-		}		
 	}
 }

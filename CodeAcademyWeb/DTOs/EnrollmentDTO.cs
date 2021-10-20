@@ -14,8 +14,9 @@ namespace CodeAcademyWeb.DTOs
 		public long CourseEditionId { get; set; }
 		public string CourseEditionCode { get; set; }
 		public string CourseEditionCourseTitle { get; set; }
-		public string EnrollmentDate { get; set; }
+		//public string EnrollmentDate { get; set; }
 		public string StudentEvaluation { get; set; }
 		public string StudentFeedback { get; set; }
+		public string CourseEditionStartDate { get; set; }
 	}
 }

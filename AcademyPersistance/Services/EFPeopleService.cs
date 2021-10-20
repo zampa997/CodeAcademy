@@ -18,13 +18,15 @@ namespace AcademyEFPersistance.Services
 		private IInstructorRepository instructorRepo;
 		private IEditionRepository editionRepo;
 		private IStudentRepository studentRepo;
+		private IEnrollmentRepository enrollmentRepo;
 		private AcademyContext ctx;
 
-		public EFPeopleService(IStudentRepository studentRepo, IInstructorRepository instructorRepo, IEditionRepository editionRepo, AcademyContext ctx)
+		public EFPeopleService(IStudentRepository studentRepo, IInstructorRepository instructorRepo, IEditionRepository editionRepo, IEnrollmentRepository enrollmentRepo, AcademyContext ctx)
 		{
 			this.studentRepo = studentRepo;
 			this.instructorRepo = instructorRepo;
 			this.editionRepo = editionRepo;
+			this.enrollmentRepo = enrollmentRepo;
 			this.ctx = ctx;
 		}
 
@@ -90,6 +92,11 @@ namespace AcademyEFPersistance.Services
 		public IEnumerable<Instructor> GetInstructors()
 		{
 			return instructorRepo.GetAll();
+		}
+
+		public IEnumerable<Enrollment> GetEnrollmentByStudentId(long id)
+		{
+			return enrollmentRepo.GetEnrollmentByStudentId(id).ToList();
 		}
 	}
 }

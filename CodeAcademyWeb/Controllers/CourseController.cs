@@ -79,6 +79,8 @@ namespace CodeAcademyWeb.Controllers
 			var resDTO = mapper.Map<CourseDTO>(course);
 			return Ok(resDTO);
 		}
+		[HttpGet]
+		[Route("lastCourse/{n}")]
 		public IActionResult GetLastNCurses(int n)
 		{
 			var courses = service.GetLastCourses(n);

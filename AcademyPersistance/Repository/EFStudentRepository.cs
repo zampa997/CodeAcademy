@@ -38,7 +38,7 @@ namespace AcademyEFPersistance.Repository {
 
 		public Student FindStudentWithCoursesById(long id)
 		{
-			return null;
+			return ctx.Students.SingleOrDefault(s => s.Id == id);
 		}
 	}
 }
