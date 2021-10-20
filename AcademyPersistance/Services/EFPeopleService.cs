@@ -98,5 +98,10 @@ namespace AcademyEFPersistance.Services
 		{
 			return enrollmentRepo.GetSubscribedEnrollmentByStudentId(id).ToList();
 		}
-	}
+
+        public IEnumerable<Enrollment> GetAvailableEnrollmentByStudentId(long id)
+        {
+			return enrollmentRepo.GetAvailableEnrollmentByStudentId(id).ToList();
+		}
+    }
 }

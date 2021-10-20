@@ -29,14 +29,14 @@ namespace CodeAcademyWeb.Controllers
 			var enrollmentDTOs = mapper.Map<IEnumerable<EnrollmentDTO>>(enrollments);
 			return Ok(enrollmentDTOs);
 		}
-		//[HttpGet]
-		//[Route("studentAvailable/{id}")]
-		//public IActionResult GetAvailableEnrollmentByStudentId(long id)
-		//{
-		//	var enrollments = service.GetEnrollmentByStudentId(id);
-		//	var enrollmentDTOs = mapper.Map<IEnumerable<EnrollmentDTO>>(enrollments);
-		//	return Ok(enrollmentDTOs);
-		//}
-	}
+        [HttpGet]
+        [Route("studentAvailable/{id}")]
+        public IActionResult GetAvailableEnrollmentByStudentId(long id)
+        {
+            var enrollments = service.GetAvailableEnrollmentByStudentId(id);
+            var enrollmentDTOs = mapper.Map<IEnumerable<EnrollmentDTO>>(enrollments);
+            return Ok(enrollmentDTOs);
+        }
+    }
 	
 }

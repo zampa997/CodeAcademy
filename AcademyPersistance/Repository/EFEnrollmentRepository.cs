@@ -2,6 +2,7 @@
 using AcademyModel.Entities;
 using AcademyModel.Repositories;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,11 @@ namespace AcademyEFPersistance.Repository
 		public IEnumerable<Enrollment> GetSubscribedEnrollmentByStudentId(long id)
 		{
 			return ctx.Enrollments.Include(e => e.Student).Include(e => e.CourseEdition).Where(e => e.StudentId == id);
+		}
+		public IEnumerable<Enrollment> GetAvailableEnrollmentByStudentId(long id)
+		{
+			LocalDate today = LocalDate.FromDateTime(new DateTime());
+			return ctx.Enrollments.Include(e => e.Student).Include(e => e.CourseEdition).Where(e => e.StudentId != id && e.CourseEdition.StartDate > today);
 		}
 	}
 }
