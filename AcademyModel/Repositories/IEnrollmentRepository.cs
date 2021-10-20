@@ -9,6 +9,6 @@ namespace AcademyModel.Repositories
 {
 	public interface IEnrollmentRepository : ICrudRepository<Enrollment, long>
 	{
-		IEnumerable<Enrollment> GetEnrollmentByStudentId(long id);
+		IEnumerable<Enrollment> GetSubscribedEnrollmentByStudentId(long id);
 	}
 }

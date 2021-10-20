@@ -22,12 +22,21 @@ namespace CodeAcademyWeb.Controllers
 			this.mapper = mapper;
 		}
 		[HttpGet]
-		[Route("student/{id}")]
+		[Route("studentSubscribed/{id}")]
 		public IActionResult GetEnrollmentByStudentId(long id)
 		{
-			var enrollments = service.GetEnrollmentByStudentId(id);
+			var enrollments = service.GetSubscribedEnrollmentByStudentId(id);
 			var enrollmentDTOs = mapper.Map<IEnumerable<EnrollmentDTO>>(enrollments);
 			return Ok(enrollmentDTOs);
 		}
+		//[HttpGet]
+		//[Route("studentAvailable/{id}")]
+		//public IActionResult GetAvailableEnrollmentByStudentId(long id)
+		//{
+		//	var enrollments = service.GetEnrollmentByStudentId(id);
+		//	var enrollmentDTOs = mapper.Map<IEnumerable<EnrollmentDTO>>(enrollments);
+		//	return Ok(enrollmentDTOs);
+		//}
 	}
+	
 }

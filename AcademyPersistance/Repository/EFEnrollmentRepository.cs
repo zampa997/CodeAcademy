@@ -15,7 +15,7 @@ namespace AcademyEFPersistance.Repository
 		public EFEnrollmentRepository(AcademyContext ctx) : base(ctx)
 		{
 		}
-		public IEnumerable<Enrollment> GetEnrollmentByStudentId(long id)
+		public IEnumerable<Enrollment> GetSubscribedEnrollmentByStudentId(long id)
 		{
 			return ctx.Enrollments.Include(e => e.Student).Include(e => e.CourseEdition).Where(e => e.StudentId == id);
 		}
