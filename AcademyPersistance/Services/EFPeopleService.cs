@@ -109,5 +109,11 @@ namespace AcademyEFPersistance.Services
 			var editions = editionRepo.GetAvailableEnrollmentByStudentId(id).ToList();
 			return editions;
 		}
-    }
+
+		public void DeleteStudent(long id)
+		{
+			studentRepo.Delete(id);
+			ctx.SaveChanges();
+		}
+	}
 }

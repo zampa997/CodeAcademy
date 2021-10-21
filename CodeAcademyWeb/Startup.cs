@@ -47,10 +47,10 @@ namespace CodeAcademyWeb
 			services.AddScoped<IAreaRepository, EFAreaRepository>();
 			services.AddScoped<IEnrollmentRepository, EFEnrollmentRepository>();
 
-			//services.AddCors(c =>                            // permette chiamate CORS per front-end
-			//{
-			//	c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-			//}); 
+			services.AddCors(c =>                            // permette chiamate CORS per front-end
+			{
+				c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+			});
 
 
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //configurazione auto mapper per casting a DTO

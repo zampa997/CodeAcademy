@@ -16,6 +16,7 @@ namespace AcademyModel.Services
 		Student GetStudentById(long id);
 		void UpdateStudent(Student s);
 		void DeleteStudent(Student s);
+		void DeleteStudent(long id);
 
 		IEnumerable<Enrollment> GetSubscribedEnrollmentByStudentId(long id);
 		IEnumerable<CourseEdition> GetAvailableEnrollmentByStudentId(long id);

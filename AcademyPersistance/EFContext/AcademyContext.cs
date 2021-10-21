@@ -52,7 +52,7 @@ namespace AcademyEFPersistance.EFContext
 				.Property(c => c.Lastname)
 				.IsRequired();
 			modelBuilder.Entity<Enrollment>()
-				.HasIndex(e => new { e.StudentId, e.CourseEditionId });
+				.HasIndex(e => new { e.StudentId, e.CourseEditionId }).IsUnique();
 		}
 	}
 }

@@ -28,8 +28,8 @@ namespace CodeAcademyWeb.Profiles
 
 			CreateMap<Enrollment, EnrollmentDTO>()
 				.ForMember(dto => dto.CourseEditionStartDate, opt => opt.MapFrom(enrollment => enrollment.CourseEdition.StartDate.ToLocalDateString()));
-			CreateMap<EnrollmentDTO, Enrollment>()
-				.ForPath(enrollment => enrollment.CourseEdition.StartDate, opt => opt.MapFrom(dto => dto.CourseEditionStartDate.Parse()));
+
+			CreateMap<EnrollmentDTO, Enrollment>();
 		}
 	}
 }

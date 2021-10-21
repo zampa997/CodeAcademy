@@ -19,7 +19,7 @@ namespace AcademyEFPersistance.Repository
 			this.ctx = ctx;
 			this.entities = ctx.Set<T>();
 		}
-		public T Create(T newElement)
+		public virtual T Create(T newElement)
 		{
 			entities.Add(newElement);
 			//ctx.SaveChanges();  Non salviamo qui, ma in DidacticsService

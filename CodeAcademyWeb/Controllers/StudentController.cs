@@ -39,11 +39,12 @@ namespace CodeAcademyWeb.Controllers
 		[HttpPut]
 		public IActionResult UpdateStudent(StudentDTO s)
 		{
-			var student  = mapper.Map<Student>(s);
+			var student = mapper.Map<Student>(s);
 			service.UpdateStudent(student);
 			var studentDTO = mapper.Map<StudentDTO>(student);
 			return Created($"/api/student/{studentDTO.Id}", studentDTO);
 		}
+		[HttpPost]
 		public IActionResult Create(StudentDTO s)
 		{
 			var student = mapper.Map<Student>(s);
@@ -51,7 +52,7 @@ namespace CodeAcademyWeb.Controllers
 			var studentDTO = mapper.Map<StudentDTO>(student);
 			return Created($"/api/student/{studentDTO.Id}", studentDTO);
 		}
-		[HttpPost]
+
 		[HttpGet]
 		[Route("{id}")]
 		public IActionResult GetStudentById(long id)
@@ -65,7 +66,7 @@ namespace CodeAcademyWeb.Controllers
 		[Route("{idStudent}/enrollments")]
 		public IActionResult EnrollStudent(EnrollDataDTO dataDTO, long idStudent)
 		{
-			if( idStudent != dataDTO.IdStudent )
+			if (idStudent != dataDTO.IdStudent)
 			{
 				return BadRequest(new ErrorObject(StatusCodes.Status400BadRequest, "L'id studente nell'URL e nel body non coincidono."));
 			}
@@ -73,6 +74,15 @@ namespace CodeAcademyWeb.Controllers
 			var enr = service.EnrollSudentToEdition(data);
 			var enrDTO = mapper.Map<EnrollmentDTO>(enr);
 			return Created($"/api/student/{data.IdStudent}/enrollments/{enr.Id}", enrDTO);
+		}
+		[HttpDelete]
+		[Route("{id}")]
+		public IActionResult DeleteStudent(long id)
+		{
+			service.DeleteStudent(id);
+			var s = service.GetStudentById(id);
+			var studentDTO = mapper.Map<Student>(s);
+			return Ok(studentDTO);
 		}
 	}
 }
