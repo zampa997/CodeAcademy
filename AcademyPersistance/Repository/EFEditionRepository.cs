@@ -73,7 +73,9 @@ namespace AcademyEFPersistance.Repository
 		}
 		public IEnumerable<CourseEdition> GetAvailableEnrollmentByStudentId(long id)
 		{
-			return ctx.CourseEditions.Where(e => e.Enrollments.All(x => x.StudentId != id));
+			DateTime localDate = DateTime.Now;
+			var date = LocalDateTime.FromDateTime(localDate).Date;
+			return ctx.CourseEditions.Where(e => e.StartDate > date && e.Enrollments.All(x => x.StudentId != id));
 		}
 	}
 }
