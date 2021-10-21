@@ -20,6 +20,8 @@ namespace AcademyModel.Services
 		IEnumerable<Enrollment> GetSubscribedEnrollmentByStudentId(long id);
 		IEnumerable<CourseEdition> GetAvailableEnrollmentByStudentId(long id);
 		Enrollment EnrollSudentToEdition(EnrollData data);
+		Enrollment CreateEnrollment(Enrollment s);
+
 
 		Instructor GetInstructorById(long id);
 		IEnumerable<Instructor> GetInstructors();

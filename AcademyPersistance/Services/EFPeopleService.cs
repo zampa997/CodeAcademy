@@ -82,7 +82,12 @@ namespace AcademyEFPersistance.Services
 			//ctx.Entry(enr.CourseEdition).Reference(e => e.Course).Load();
 			return enr;
 		}
-
+		public Enrollment CreateEnrollment(Enrollment e)
+		{
+			enrollmentRepo.Create(e);
+			ctx.SaveChanges();  //Salviamo qui invece che nella repository
+			return e;
+		}
 
 		public Instructor GetInstructorById(long id)
 		{

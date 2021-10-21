@@ -1,4 +1,6 @@
-﻿using AcademyModel.Services;
+﻿using AcademyModel.Entities;
+using AcademyModel.Exceptions;
+using AcademyModel.Services;
 using AutoMapper;
 using CodeAcademyWeb.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +39,22 @@ namespace CodeAcademyWeb.Controllers
             var enrollmentDTOs = mapper.Map<IEnumerable<CourseEditionDetailsDTO>>(enrollments);
             return Ok(enrollmentDTOs);
         }
-    }
+		[HttpPost]
+		public IActionResult Create(EnrollmentDTO e)
+		{
+			try
+			{
+				var g = e;
+				var enrollment = mapper.Map<Enrollment>(e);
+				service.CreateEnrollment(enrollment);
+				var enrollmentDTO = mapper.Map<EnrollmentDTO>(enrollment);
+				return Created($"/api/edition/{enrollmentDTO.Id}", enrollmentDTO);
+			}
+			catch (EntityNotFoundException ex)
+			{
+				return BadRequest(new ErrorObject(StatusCodes.Status400BadRequest, ex.Message));
+			}
+		}
+	}
 	
 }
