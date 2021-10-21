@@ -36,7 +36,14 @@ namespace CodeAcademyWeb.Controllers
 			var studentDTOs = mapper.Map<IEnumerable<StudentDTO>>(students);
 			return Ok(studentDTOs);
 		}
-		[HttpPost]
+		[HttpPut]
+		public IActionResult UpdateStudent(StudentDTO s)
+		{
+			var student  = mapper.Map<Student>(s);
+			service.UpdateStudent(student);
+			var studentDTO = mapper.Map<StudentDTO>(student);
+			return Created($"/api/student/{studentDTO.Id}", studentDTO);
+		}
 		public IActionResult Create(StudentDTO s)
 		{
 			var student = mapper.Map<Student>(s);
@@ -44,6 +51,7 @@ namespace CodeAcademyWeb.Controllers
 			var studentDTO = mapper.Map<StudentDTO>(student);
 			return Created($"/api/student/{studentDTO.Id}", studentDTO);
 		}
+		[HttpPost]
 		[HttpGet]
 		[Route("{id}")]
 		public IActionResult GetStudentById(long id)
