@@ -20,10 +20,6 @@ namespace AcademyEFPersistance.Repository
 		{
 			return ctx.Enrollments.Include(e => e.Student).Include(e => e.CourseEdition).Where(e => e.StudentId == id);
 		}
-		public IEnumerable<Enrollment> GetAvailableEnrollmentByStudentId(long id)
-		{
-			LocalDate today = LocalDate.FromDateTime(new DateTime());
-			return ctx.Enrollments.Include(e => e.Student).Include(e => e.CourseEdition).Where(e => e.StudentId != id && e.CourseEdition.StartDate > today);
-		}
+
 	}
 }

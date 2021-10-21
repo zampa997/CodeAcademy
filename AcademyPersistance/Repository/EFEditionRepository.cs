@@ -71,5 +71,9 @@ namespace AcademyEFPersistance.Repository
 		{
 			return ctx.CourseEditions.Where(e => e.CourseId == id);
 		}
+		public IEnumerable<CourseEdition> GetAvailableEnrollmentByStudentId(long id)
+		{
+			return ctx.CourseEditions.Where(e => e.Enrollments.All(x => x.StudentId != id));
+		}
 	}
 }

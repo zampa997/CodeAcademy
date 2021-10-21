@@ -15,5 +15,6 @@ namespace AcademyModel.Repositories
 		// ricerca like su titolo e in range tra a e b
 		public IEnumerable<CourseEdition> GetEditionsByCourseId(long id);
 		IEnumerable<CourseEdition> Search(EditionSearchInfo info);
+		IEnumerable<CourseEdition> GetAvailableEnrollmentByStudentId(long id);
 	}
 }
