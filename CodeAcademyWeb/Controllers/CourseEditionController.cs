@@ -65,7 +65,7 @@ namespace CodeAcademyWeb.Controllers
 				var edition = mapper.Map<CourseEdition>(e);
 				service.EditCourseEdition(edition);
 				var courseEditionDTO = mapper.Map<CourseEditionDetailsDTO>(edition);
-				return NoContent();
+				return Ok(courseEditionDTO);
 			}
 			catch (EntityNotFoundException ex)
 			{
@@ -98,7 +98,7 @@ namespace CodeAcademyWeb.Controllers
 		public IActionResult GetEditionsByCourseId(long id)
 		{
 			var editions = service.GetEditionsByCourseId(id);
-			var editionDTOs = mapper.Map<IEnumerable<CourseEditionDTO>>(editions);
+			var editionDTOs = mapper.Map<IEnumerable<CourseEditionDetailsDTO>>(editions);
 			return Ok(editionDTOs);
 		}
 	}

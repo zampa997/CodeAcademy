@@ -22,6 +22,7 @@ namespace AcademyModel.Services
 		IEnumerable<CourseEdition> GetAvailableEnrollmentByStudentId(long id);
 		Enrollment EnrollSudentToEdition(EnrollData data);
 		Enrollment CreateEnrollment(Enrollment s);
+		void DeleteEnrollment(long id);
 
 
 		Instructor GetInstructorById(long id);

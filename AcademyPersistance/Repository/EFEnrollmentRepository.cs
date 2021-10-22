@@ -18,7 +18,7 @@ namespace AcademyEFPersistance.Repository
 		}
 		public IEnumerable<Enrollment> GetSubscribedEnrollmentByStudentId(long id)
 		{
-			return ctx.Enrollments.Include(e => e.Student).Include(e => e.CourseEdition).Where(e => e.StudentId == id);
+			return ctx.Enrollments.Include(e => e.Student).Include(e => e.CourseEdition).Include(e => e.CourseEdition.Course).Where(e => e.StudentId == id);
 		}
 
 	}

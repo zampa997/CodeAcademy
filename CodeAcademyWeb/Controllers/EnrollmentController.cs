@@ -44,7 +44,6 @@ namespace CodeAcademyWeb.Controllers
 		{
 			try
 			{
-				var g = e;
 				var enrollment = mapper.Map<Enrollment>(e);
 				service.CreateEnrollment(enrollment);
 				var enrollmentDTO = mapper.Map<EnrollmentDTO>(enrollment);
@@ -54,6 +53,13 @@ namespace CodeAcademyWeb.Controllers
 			{
 				return BadRequest(new ErrorObject(StatusCodes.Status400BadRequest, ex.Message));
 			}
+		}
+		[HttpDelete]
+		[Route("{id}")]
+		public IActionResult DeleteEnroll(long id)
+		{
+			service.DeleteEnrollment(id);
+			return Ok();
 		}
 	}
 	

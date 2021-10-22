@@ -115,5 +115,12 @@ namespace AcademyEFPersistance.Services
 			studentRepo.Delete(id);
 			ctx.SaveChanges();
 		}
+
+		public void DeleteEnrollment(long id)
+		{
+			var enrollmment = enrollmentRepo.FindById(id);
+			enrollmentRepo.Delete(enrollmment);
+			ctx.SaveChanges();
+		}
 	}
 }

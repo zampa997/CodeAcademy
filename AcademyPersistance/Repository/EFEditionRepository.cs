@@ -69,7 +69,8 @@ namespace AcademyEFPersistance.Repository
 		}
 		public IEnumerable<CourseEdition> GetEditionsByCourseId(long id)
 		{
-			return ctx.CourseEditions.Where(e => e.CourseId == id);
+			return ctx.CourseEditions.Include(c => c.Course).Where(e => e.CourseId == id);
+
 		}
 		public IEnumerable<CourseEdition> GetAvailableEnrollmentByStudentId(long id)
 		{
